@@ -14,18 +14,15 @@ Core Principles
    has the job of arbitrating between the concerns of the view and the model.
 #. **Each agent is responsible for handling its own errors.** An agent must never
    delegate error handling to somebody else. An exception must only be sent (but not thrown,
-   see below!)
-   in the case of an undefined state where comprehensive handling is not possible because of
-   missing information.
+   see below!) in the case of an undefined state where comprehensive handling is
+   not possible because of missing information. See also :doc:`exception-handling`
+   for more details.
 #. **A component must never throw an exception beyond its component boundary.** Using
    exceptions within a component is fine, but they must not leave the component's
-   boundary. There are two reasons for that: **(a)** exception
-   handling depends on the call stack, so a throw-catch only works at those places
-   where a common call stack is guaranteed; but in general different components do not share a common
-   call stack, so the throw-catch is bound to fail; **(b)** throwing an exception
-   is very likely to break encapsulation because very often it is used for delegating
-   error handling, which violates the principle that an agent is responsible for
-   handling its own errors.
+   boundary, both for technical reasons and design reasons. Error or status
+   information should be communicated in the form of either exception events or
+   requests/commands that return an ``Either``. See :doc:`exception-handling` for
+   more details.
 #. **A component's ports can only be used by that component itself, not by other components.**
    For example, it would be a pretty twisted idea to create a getter for an OUT port and
    to pass that OUT port around. While technically possible, that would

@@ -26,6 +26,7 @@ Core features:
    why-ports	
    tutorial
    core-principles
+   exception-handling
    vaadin-spring
    protocols
    best-practices
