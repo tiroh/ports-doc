@@ -2,10 +2,6 @@
 Protocols
 =========
 
-.. NOTE::
-   Protocols are not available in Ports |version|. They are a core feature
-   of Ports 0.5.0, which will be released in the very near future.
-
 Protocols enable you to inject **(a)** metaevents
 (events that trigger when an event or request is triggered) and
 **(b)** messages into the system without involvement of the individual components.

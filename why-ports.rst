@@ -11,13 +11,11 @@ read :doc:`background`.
 Advantages
 ==========
 
-* Ports helps you avoid what I like to call *creeping couplings*. It happens when
-  your service interfaces and inter-service dependencies grow larger and larger
-  over time, increasing couplings to a point where you basically have a
-  monolithic *ball of mud*, despite using inversion of control and dependency injection.
-* Ports lets you express your component interfaces in terms of *types*
-  instead of *services*, thus making individual maintenance tasks of your components
-  very agile, swift, reactive, and micro-sized (see how I am able to use all the buzzwords at once?).
+* Ports helps you achieving better maintainability by replacing interface-based
+  dependency injection with data-type-based dependency injection. This way, it is much
+  easier for you to keep components decoupled.
+* Ports manages asynchronicity and parallelism automatically. Business code can be
+  kept cleen of any manual synchronization and threading directives.
 * Ports makes implementing *variants* of your product a little bit less of a pain.
   (Variant management is always a pain, but the way Ports works provides a certain
   kind of analgesic.)
@@ -51,7 +49,6 @@ Roadmap
 The following major features are planned for future releases:
 
 * A proprietary IOC container so that Spring is not required anymore.
-* Automatic and transparent parallelization of your components (optional, of course).
 * Routing of events and requests.
 * Automatic extraction of graphical design documentation directly from your
   source code. (No need for maintaining UML component diagrams.)

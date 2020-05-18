@@ -11,6 +11,7 @@ Ports is a Java framework for inter-component communication within a JVM process
 Core features:
 
 * Acts like a high-performance, *type-safe* ESB (enterprise service bus).
+* Strong support for asynchronicity and parallelism.
 * Declarative description of tests (in the manner of mocking frameworks).
 * Fault injection.
 * AOP-like features for monitoring, logging, or debugging.
@@ -26,9 +27,10 @@ Core features:
    why-ports	
    tutorial
    core-principles
+   asynchronicity
    exception-handling
-   vaadin-spring
    protocols
+   vaadin-spring
    best-practices
    background
    history

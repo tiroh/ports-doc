@@ -70,8 +70,8 @@ dependency injection "*interface-based dependency injection*" from now on.
 So, interface-based dependency injection does not lead to dependency on data types but
 to dependency on interfaces. Interfaces represent components. Our hope is that we will
 decouple those components from each other, but unfortunately, the opposite is
-the case. Assume that there a two components **A** and **B** that are application-specific, that is,
-they don't originate from a library or framework but belong to the solution.
+the case. Assume that there are two components **A** and **B** that are application-specific,
+that is, they don't originate from a library or framework but belong to the solution.
 Component **A** depends on an interface **IF** that is implemented by
 component **B**. Then:
 

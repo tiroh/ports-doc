@@ -190,8 +190,8 @@ you declare the OUT ports like this:
 The member names must follow the naming convention shown.
 This is enforced by the framework.
 
-You can send events and exceptions using the **trigger** method and requests
-and commands using the **call** method:
+You can send events and exceptions using the ``trigger`` method. For requests and commands,
+you can use either the ``call`` or the ``submit`` methods:
 
 .. code-block:: java
 
@@ -200,9 +200,13 @@ and commands using the **call** method:
   
   FindDataResponse response = findDataRequest.call(new FindDataRequest());
   SaveDataStatus status = saveDataCommand.call(new SaveDataCommand());
+  
+  PortsFuture<FindDataResponse> future = findDataRequest.submit(new FindDataRequest());
 
 Up to Ports 0.4.1, all messages are handled synchronously. Starting with
-Ports 0.5.0, there will also be the possibility of asynchronous execution.
+Ports 0.5.0, so-called **synchronization domains** are used to determine how
+messages are handled. For more information on asynchronicity and parallelism, please
+have a look at :doc:`asynchronicity`.
 
 
 
