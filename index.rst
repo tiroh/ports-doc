@@ -30,6 +30,7 @@ Core features:
    asynchronicity
    exception-handling
    protocols
+   types
    vaadin-spring
    best-practices
    background
