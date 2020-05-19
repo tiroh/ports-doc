@@ -11,11 +11,11 @@ read :doc:`background`.
 Advantages
 ==========
 
-* Ports helps you achieving better maintainability by replacing interface-based
-  dependency injection with data-type-based dependency injection. This way, it is much
+* Ports helps you achieve better maintainability by replacing interface-based
+  dependency injection by data-type-based dependency injection. This way, it is much
   easier for you to keep components decoupled.
 * Ports manages asynchronicity and parallelism automatically. Business code can be
-  kept cleen of any manual synchronization and threading directives.
+  kept clean of any manual synchronization and threading directives.
 * Ports makes implementing *variants* of your product a little bit less of a pain.
   (Variant management is always a pain, but the way Ports works provides a certain
   kind of analgesic.)

@@ -191,7 +191,7 @@ The member names must follow the naming convention shown.
 This is enforced by the framework.
 
 You can send events and exceptions using the ``trigger`` method. For requests and commands,
-you can use either the ``call`` or the ``submit`` methods:
+you can use either the ``call``, ``submit``, or ``fork`` methods:
 
 .. code-block:: java
 
@@ -202,6 +202,8 @@ you can use either the ``call`` or the ``submit`` methods:
   SaveDataStatus status = saveDataCommand.call(new SaveDataCommand());
   
   PortsFuture<FindDataResponse> future = findDataRequest.submit(new FindDataRequest());
+  
+  Fork<FindDataResponse> fork = findDataRequest.fork(10, k -> new FindDataRequest();
 
 Up to Ports 0.4.1, all messages are handled synchronously. Starting with
 Ports 0.5.0, so-called **synchronization domains** are used to determine how
