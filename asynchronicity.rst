@@ -248,7 +248,8 @@ a chain of intermediate messages) that in turn waits for a response of component
 In this situation, **A** cannot deliver a response to **B** because **A** is locked and
 hence cannot accept **B**'s request; **A**'s
 lock will only be released when it receives a response from **B**, which will never
-happen because **B** is waiting for a response from **A**. Therefore, the system enters an everlasting wait state --- a *deadlock*. Let's call this kind of circular
+happen because **B** is waiting for a response from **A**. Therefore, the system enters an
+everlasting wait state --- a *deadlock*. Let's call this kind of circular
 relationship between components a **critical loop**.
 
 Critical loops happen very quickly in practice, so you should take them into account when

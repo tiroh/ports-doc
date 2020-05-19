@@ -15,9 +15,6 @@ Keep in mind the following items:
    In practice, in some applications only MANUAL works. It is likely that this is a
    configuration issue on the side of the applications, but for now, it is recommended
    to set the push mode to MANUAL.
-#. If you use MANUAL push mode, you unfortunately have to call
-   ``PortsPushMode.setManual()`` as early as possible in your application lifecycle.
-   This will change in the next release (``PortsPushMode`` will be removed).
 #. In principle, only use the singleton scope and the UI scope. If you need a UI
    component that can be instantiated multiple times per UI, use the prototype scope.
    Singleton scope does not require any annotation.
