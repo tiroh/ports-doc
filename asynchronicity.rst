@@ -41,7 +41,21 @@ There are three *dispatch policies* that define how a domain dispatches messages
    indeterminate number of separate threads. The number of threads depends on the number of
    logical cores available to the virtual machine.
 
-.. NOTE::
+Messages that are both sent and received within the same synchronization domain **D** are
+always dispatched synchronously within the thread of the sender if that thread belongs to **D**.
+This is true no matter what
+dispatch policy the domain uses. As a consequence, you cannot expect the ``fork`` method
+to speed up your application if the individual requests are handled within the domain of the
+sender. Messages must cross domain boundaries in order to have a chance for being dispatched
+asynchronously or in parallel.
+
+The reasons for this design decision are
+
+* reduction of contention,
+* avoidance of excessive parallelization without any real benefit, and
+* avoidance of excessive need for deadlock resolution which would degrade performance.
+
+.. TIP::
    **Do not parallelize tiny tasks.**
    
    Dispatching messages in parallel necessarily causes some performance overhead.
@@ -177,7 +191,7 @@ the policies of domain ``my-domain``. Of course, keep in mind that if you used t
 ``com.example.mydomain`` contained more components than just ``A``, ``B``, and ``C``,
 those additional components would also be members of domain ``my-domain``.
 
-.. NOTE::
+.. TIP::
    You have to specify how your team manages domains: do you want to work
    with packages or with individual classes? If a component is moved or a new component
    is added to a package, do you want it to leave or enter a domain automatically or

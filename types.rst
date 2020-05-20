@@ -1,6 +1,6 @@
-====================
-The Types Collection
-====================
+=========================
+The Ports Type Collection
+=========================
 
 Ports provides a collection of convenience types that make handling of requests,
 commands, and errors easier. They don't have any specific ties to message handling,

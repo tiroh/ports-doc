@@ -2,6 +2,21 @@
 History
 =======
 
+Changelog
+=========
+
+* **0.5.0** --- (not released yet) protocols, asynchronicity & parallelism, type collection
+* **0.4.1** --- (10 Apr 2020) syntax checking, union types
+* **0.4.0** --- (04 Apr 2020) syntax checking, response type declarations
+* **0.3.1** --- (24 May 2019) minor internal changes
+* **0.3.0** --- (22 Feb 2019) various Vaadin/Spring improvements
+* **0.2.4** --- (23 Nov 2018) first tagged release; Vaadin/Spring improvements
+* **0.1.0** --- (25 Sep 2018) first release
+
+
+Project History
+===============
+
 Despite still being in development, Ports already has a small but nice
 success story:
 
