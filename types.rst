@@ -118,3 +118,27 @@ The tuple types provide many convenience methods and interoperability with ``Eit
   TripleX<Float> triple = Tuple.ofX(1.0f, 2.0f, 3.0f);
   boolean isContained = triple.containsDistinct(floatPair);
   PairX<Float> pairBC = triple.pairBC();
+
+
+Container
+=========
+
+The ``Container`` class provides a simple wrapper around an arbitrary type ``T``. This type
+exists only because Java lambdas cannot form closures with non-final local variables, making state
+modifications of those variables difficult when working with closures. Most of the time,
+this is not a problem because you don't want lambdas to modify state anyway, but
+there are exceptions to this general rule, mostly for technical reasons.
+
+For example, when you are writing tests using protocols, you may want your
+lambdas to modify some variable in order to indicate to JUnit a certain test outcome.
+
+You instantiate a ``Container`` using its ``of`` constructor. You can access its value
+directly via its public ``value`` member:
+
+.. code-block:: java
+
+  Container<Integer> intContainer = Container.of(37);
+  
+  intContainer.value *= 2;
+
+
