@@ -271,20 +271,23 @@ you declare the IN ports like this:
   }
 
 
-There is also the option to receive events and exceptions in special stacks and
-queues. However, this feature is only needed in rare cases and *not recommended*
-for regular components. It looks like this:
+There is also the option to receive events and exceptions in IN ports with stack
+semantics or queue semantics. It looks like this:
 
 .. code-block:: java
 
   @In
-  private Queue<SomethingHappenedEvent> somethingHappenedEventQueue;
+  private QueuePort<SomethingHappenedEvent> somethingHappenedEventQueue;
   
   @In
-  private Stack<MyFailureException> myFailureExceptionStack;
+  private StackPort<MyFailureException> myFailureExceptionStack;
 
-The ``Queue`` and ``Stack`` types reside in the ``org.timux.ports`` package.
-Only those can be used, the usual Java Collections are not possible here.
+Using the ``peek``, ``poll``, and ``pop`` methods of ``QueuePort`` and ``StackPort``
+(respectively), you can access the received messages. This feature is designed
+for so-called *active components* that are not waiting for messages but running
+continuously. Under normal circumstances, it is not required, and it is *not recommended*
+for regular components.
+
 
 
 Step 8: Connect Your Components

@@ -5,7 +5,7 @@ History
 Changelog
 =========
 
-* **0.5.0** --- (not released yet) protocols, asynchronicity & parallelism, type collection
+* **0.5.0** --- (26 May 2020) protocols, asynchronicity & parallelism, type collection
 * **0.4.1** --- (10 Apr 2020) syntax checking, union types
 * **0.4.0** --- (04 Apr 2020) syntax checking, response type declarations
 * **0.3.1** --- (24 May 2019) minor internal changes
