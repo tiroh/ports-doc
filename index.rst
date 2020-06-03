@@ -28,6 +28,7 @@ Core features:
    tutorial
    core-principles
    asynchronicity
+   requests
    exception-handling
    protocols
    types

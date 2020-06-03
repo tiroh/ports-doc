@@ -240,6 +240,9 @@ response, but returns a ``Fork`` instance, which also implements Java's ``Future
 The ``fork`` method provides support for the well-known Fork-Join pattern of
 parallel computing.
 
+Please read :doc:`requests` for more details on how to write short and effective code
+for requests.
+
 It is important to understand that **the sender of a message has no control whatsoever
 about whether the message will be handled synchronously, asynchronously, or in parallel**.
 It is completely up to the receiver's synchronization domain to decide how messages are
