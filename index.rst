@@ -27,8 +27,8 @@ Core features:
    why-ports
    tutorial
    core-principles
-   asynchronicity
    requests
+   asynchronicity
    exception-handling
    protocols
    types

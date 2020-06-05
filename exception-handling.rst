@@ -88,3 +88,8 @@ If you need to communicate error or status information, use a request
 that returns an ``Either`` and follow the core principles (see :doc:`core-principles`) which
 mandate that each component is responsible for handling its own errors.
 
+
+Exception Streamlining
+======================
+
+
