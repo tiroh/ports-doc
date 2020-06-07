@@ -191,7 +191,9 @@ The member names must follow the naming convention shown.
 This is enforced by the framework.
 
 You can send events and exceptions using the ``trigger`` method. For requests and commands,
-you can use either the ``call``, ``submit``, or ``fork`` methods:
+you can use the methods ``call`` (returns the response directly), ``callE`` (returns
+the response packaged into an ``Either<T, Failure>``), ``callF`` (returns a
+``PortsFuture``), or ``fork`` (sends multiple requests at once and returns a ``Fork``):
 
 .. code-block:: java
 
@@ -201,7 +203,7 @@ you can use either the ``call``, ``submit``, or ``fork`` methods:
   FindDataResponse response = findDataRequest.call(new FindDataRequest());
   SaveDataStatus status = saveDataCommand.call(new SaveDataCommand());
   
-  PortsFuture<FindDataResponse> future = findDataRequest.submit(new FindDataRequest());
+  PortsFuture<FindDataResponse> future = findDataRequest.callF(new FindDataRequest());
   
   Fork<FindDataResponse> fork = findDataRequest.fork(10, k -> new FindDataRequest();
 

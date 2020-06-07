@@ -87,6 +87,9 @@ Also, if you have a command that cannot fail, you can define its response simply
 ``Success`` cannot be instantiated. Instead, you can use the static ``Success.INSTANCE``
 member. ``Failure`` provides both a constructor and a static default instance ``Failure.INSTANCE``.
 
+The ``Failure`` type is used for streamlining exceptions. Please see :doc:`requests`
+and :doc:`exception-handling` for more information.
+
 
 Pair, PairX, Triple, TripleX
 ============================
