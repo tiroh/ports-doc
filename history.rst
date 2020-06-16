@@ -5,6 +5,8 @@ History
 Changelog
 =========
 
+* **0.5.2** --- (not released yet)
+* **0.5.1** --- (02 Jun 2020) exception streamlining
 * **0.5.0** --- (26 May 2020) protocols, asynchronicity & parallelism, type collection
 * **0.4.1** --- (10 Apr 2020) syntax checking, union types
 * **0.4.0** --- (04 Apr 2020) syntax checking, response type declarations

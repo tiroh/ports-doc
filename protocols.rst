@@ -219,19 +219,19 @@ You can use protocols to both "mock away" the OUT ports that remain
 unconnected when the components under tests are connected with each other and to
 react to computational results, for example using assertions.
 
-It is important to release all protocols before each individual test method
+It is important to release all protocols after each individual test method
 is executed. The only exception is when the protocols are valid for all tests,
 however, that is rarely the case. For JUnit (version 5), you need a method like this:
 
 .. code-block:: java
 
-  @BeforeEach
-  public void setup() {
+  @AfterEach
+  public void afterEach() {
       Ports.releaseProtocols();
   }
 
 .. WARNING::
-   If you do not release your protocols before each test, your tests will
+   If you do not release your protocols after each test, your tests will
    behave unpredictably and erratically. (Except when the protocols are valid
    for all tests.)
 
@@ -332,8 +332,8 @@ And this is the actual unit test (JUnit 5):
       }
   }
 
-  @BeforeEach
-  public void setup() {
+  @AfterEach
+  public void afterEach() {
       Ports.releaseProtocols();
   }
 
