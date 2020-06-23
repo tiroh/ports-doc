@@ -321,17 +321,6 @@ And this is the actual unit test (JUnit 5):
 
 .. code-block:: java
 
-  // We use this wrapper class in order to store values that are changeable
-  // from within a closure, see below.
-  static class ValueContainer<T> {
-
-      public T value;
-
-      public ValueContainer(T defaultValue) {
-          value = defaultValue;
-      }
-  }
-
   @AfterEach
   public void afterEach() {
       Ports.releaseProtocols();
@@ -347,8 +336,8 @@ And this is the actual unit test (JUnit 5):
       Ports.register(firstDemoComponent, secondDemoComponent);
 
       // Protocols are based on lambdas which can only refer to final references.
-      // Therefore, we use this simple ValueContainer in order to store computation results.
-      ValueContainer<Double> result = new ValueContainer<>(Double.NaN);
+      // Therefore, we use this container in order to store computation results.
+      Container<Double> result = Container.of(Double.NaN);
 
       // Here come the conditional protocols:
       Ports.protocol()
