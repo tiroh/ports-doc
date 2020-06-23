@@ -92,10 +92,10 @@ You can also chain this up in a single protocol:
   Ports.protocol()
       .when(SomethingHappenedEvent.class)
           .triggers()
-              .do_(event -> logger.log("The event happened: {}", event);
+              .do_(event -> logger.log("The event happened: {}", event)
       .when(FindDataRequest.class, FindDataResponse.class)
           .requests()
-              .do_(request -> logger.log("The request was called: {}", request);
+              .do_(request -> logger.log("The request was called: {}", request)
       .when(FindDataRequest.class, FindDataResponse.class)
           .responds()
               .do_(response -> logger.log("The request responds: {}", response);
@@ -111,10 +111,10 @@ that has a certain minimum value:
   Ports.protocol()
       .when(SomethingHappenedEvent.class)
           .triggers(event -> event.getPayload() > 5)
-              .do_(event -> logger.log("The event has a payload > 5: {}", event);
+              .do_(event -> logger.log("The event has a payload > 5: {}", event)
       .when(FindDataRequest.class, FindDataResponse.class)
           .requests(request -> request.getPayload() > 7)
-              .do_(request -> logger.log("The request has a payload > 7: {}", request);
+              .do_(request -> logger.log("The request has a payload > 7: {}", request)
       .when(FindDataRequest.class, FindDataResponse.class)
           .responds(response -> response.getPayload() > 9)
               .do_(response -> logger.log("The request sends a response > 9: {}", response);
@@ -184,7 +184,7 @@ You could create a single chain of those protocols like this:
 
   Ports.protocol()
       .with(SomethingHappenedEvent.class)
-          .trigger(new SomethingHappenedEvent());
+          .trigger(new SomethingHappenedEvent())
       .with(FindDataRequest.class, FindDataResponse.class)
           .call(new FindDataRequest());
 
