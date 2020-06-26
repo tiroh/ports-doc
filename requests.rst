@@ -152,12 +152,12 @@ can also be accomplished in the following way:
 .. code-block:: java
 
   firstRequest.callE(new FirstRequest())
+          .orElseDoOnce(failure -> { ... })
           .andThen(firstResponse -> secondRequest.callE(new SecondRequest())
           .orElseDoOnce(failure -> { ... })
           .andThen(secondResponse -> thirdRequest.callE(new ThirdRequest())
           .orElseDoOnce(failure -> { ... })
-          .andThenDo(thirdResponse -> { ... })
-          .orElseDoOnce(failure -> { ... });
+          .andThenDo(thirdResponse -> { ... });
 
 This code style can be more concise than the code above with all the exception handling.
 
