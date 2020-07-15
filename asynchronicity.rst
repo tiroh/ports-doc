@@ -2,27 +2,25 @@
 Asynchronicity and Parallelism
 ==============================
 
-Starting with version 0.5.0, Ports supports asynchronicity and
-parallelism. In order to make asynchronous programming as simple and transparent
+In order to make asynchronous and parallel programming as simple and transparent
 as possible, Ports abstracts from the rather technical notion of multithreading and
-introduces its own model of asynchronicity. In many cases, this model enables you to
-benefit from asynchronous and/or parallel execution without having to worry about the
-intricate complexities of synchronization and deadlock prevention.
+introduces its own model of asynchronicity and parallelism. In many cases, this model
+enables you to benefit from asynchronous and/or parallel execution without having to
+worry about the intricate complexities of synchronization and deadlock prevention.
 
+An important difference between Ports and other frameworks is that Ports
+does not differentiate between "synchronous" and "asynchronous" messages. The
+reason is separation of concerns: a developer having to care about asynchronicity
+while writing business code is effectively mixing concerns. So, Ports treats all
+messages as potentially asynchronous and introduces the
+notion of *synchronzation domains* that allows transparent separation
+of asynchronicity from business logic.
 
 
 Synchronization Domains
 =======================
 
-An important difference between Ports and other frameworks is that Ports
-does not recognize the concept of a "synchronous" or an "asynchronous" message.
-That's because separation of concerns is an important cornerstone of Ports's
-philosophy, and a developer having to care about asynchronicity while writing
-business code is effectively mixing concerns. So, Ports introduces the more
-abstract notion of **synchronzation domains** that allows transparent separation
-of asynchronicity from business logic.
-
-A synchronization domain is an imaginary collection of components that share a common
+A *synchronization domain* is an imaginary collection of components that share a common
 **dispatch policy** and a common **synchronization policy**. An application can define
 arbitrarily many synchronization domains, but each component can only belong to exactly
 one synchronization domain.
@@ -220,22 +218,25 @@ block**. See :doc:`exception-handling` for more details on this topic.
 Requests, Futures, and Forks
 ============================
 
-The ``Request`` class provides three methods for sending messages (in addition to
-futher methods that are convenience variants of those three):
+The ``Request`` class provides the following methods for sending messages:
 
 #. ``call``,
-#. ``submit``,
+#. ``callE``,
+#. ``callF``,
 #. ``fork``.
 
-The difference between ``call`` and ``submit`` is that ``call`` waits for a response
-(if necessary) and returns it directly, while ``submit`` does not wait but returns a
+Well, in this context, ``callE`` is not relevant, so let's focus on the other three.
+(Read :doc:`requests` for more information about this method.)
+
+The difference between ``call`` and ``callF`` is that ``call`` waits for a response
+(if necessary) and returns it directly, while ``callF`` does not wait but returns a
 ``PortsFuture`` instead. ``PortsFuture`` implements Java's ``Future`` interface and
 provides facilities to handle failures without exceptions (by using the union types
 ``Either`` and ``Either3``).
-The ``call``  method can be regarded as syntactic sugar for a ``submit`` followed
+The ``call``  method can be regarded as syntactic sugar for a ``callF`` followed
 by an immediate ``get`` on the returned ``PortsFuture``.
 
-The ``fork`` method issues multiple ``submit``-s at once. It does not wait for a
+The ``fork`` method issues multiple ``callF``-s at once. It does not wait for a
 response, but returns a ``Fork`` instance, which also implements Java's ``Future`` interface.
 The ``fork`` method provides support for the well-known Fork-Join pattern of
 parallel computing.
