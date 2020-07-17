@@ -37,3 +37,16 @@ Core Principles
 #. **Components should only depend on datatypes, not functions.**
    Otherwise, the componentization would not be in
    normal form. Please read :doc:`background` for more details on this.
+#. **Components must never contain threading-related directives.** It is important to
+   realize that **(a)** threading is a *concern*, which means that it must be separated
+   from other concerns, and that **(b)** threading is a *cross-cutting concern*, which means
+   that it must be handled on the level of an application's infrastructure. You cannot just
+   "throw it in",
+   because each component that interferes with threading automatically interferes
+   with all other components, thus creating very complicated and basically unmanageable
+   couplings. The bottom line is that asynchronicity and parallelism
+   is so extremely dangerous for correctness that it must always be handled by a
+   framework, never by an application itself (which is only responsible for business logic).
+   Ports provides extensive support for asynchronicity and parallelism under the hood
+   (please read :doc:`asynchronicity` for more information).
+   
