@@ -8,6 +8,7 @@ Changelog
 This changelog lists the most important improvements. Minor changes or fixes of
 non-critical issues are not mentioned here.
 
+* **0.5.4** --- (23 Jul 2020) fixed signature of ``andThen`` method of ``Either`` types
 * **0.5.3** --- (10 Jul 2020) introduced component ownership in Vaadin-Spring module, improved ``Either`` API
 * **0.5.2** --- (16 Jun 2020) request chaining
 * **0.5.1** --- (02 Jun 2020) exception streamlining

@@ -45,11 +45,24 @@ a convenience type.
   );
 
 
-Nothing
-=======
+Nothing, Unknown
+================
 
-The ``Nothing`` type indicates the absence of a meaningful value. You can use this type
-in conjunction with an ``Either`` or ``Either3`` to indicate that a value is missing:
+The ``Nothing`` type indicates the absence of a meaningful value, while the ``Unknown``
+type indicates that a meaningful value is not known, but might still exist.
+
+The difference between these types is subtle, but reasonable. Let's have a look at
+an example.
+
+Let's assume we are designing a software for configuring laptop computers. A laptop
+might have a discrete graphics card. When we request information about the discrete
+graphics card, there are two scenarios that we would like to differentiate:
+
+* There is no graphics card. In this case, the service responsible would return ``Nothing``.
+* For some reason, we are not able to retrieve the required information. In this
+  case, the service responsible would return ``Unknown``.
+
+You can use these types in conjunction with ``Either`` or ``Either3``:
 
 .. code-block:: java
 
@@ -145,3 +158,11 @@ directly via its public ``value`` member:
   intContainer.value *= 2;
 
 
+TriFunction
+===========
+
+The ``TriFunction`` interface works similar to the well-known ``Function`` and
+``BiFunction`` interfaces of the ``java.util.function`` package. The difference is
+that while ``Function``
+and ``BiFunction`` only support functions with 1 or 2 parameters, respectively,
+the ``TriFunction`` interface supports 3 parameters.
