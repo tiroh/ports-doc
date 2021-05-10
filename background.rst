@@ -89,7 +89,7 @@ component **B**. Then:
 * component **A** cannot be tested without (a) someone implementing **IF** and (b) taking care
   that this mock implementation mimicks the behavior of **B**,
 * the interface of **B** cannot be changed without breaking **A** (and all the other dependants),
-* B cannot be changed internally without breaking **A** (and all the other dependants)
+* **B** cannot be changed internally without breaking **A** (and all the other dependants)
   because of functional and temporal couplings between **A** and **B** that have evolved over time,
 * probably even **A** cannot be changed internally without breaking **B** for the same reason,
 * and of course: oftentimes, developers not even make the effort of creating interfaces but just

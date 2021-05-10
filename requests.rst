@@ -235,6 +235,13 @@ receiver is placed in an asynchronous or parallel domain. See :doc:`asynchronici
 for details.
 
 
+Pure Requests
+=============
+
+In order to improve performance, requests can be marked as `pure`. Please see
+:doc:`pure-requests` for details.
+
+
 Exception Streamlining
 ======================
 

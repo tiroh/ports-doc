@@ -3,7 +3,7 @@ The Ports Framework
 ===================
 
 .. NOTE::
-   This documentation relates to Ports version |version|.
+   This documentation is written for Ports version |version|.
 
 
 **Ports is a Java framework for inter-component communication within a JVM process.**
@@ -16,8 +16,7 @@ Core features:
 * Declarative description of tests (in the manner of mocking frameworks).
 * Fault injection.
 * AOP-like features for monitoring, logging, or debugging.
-* Built-in support for union types (``Either`` and ``Either3``),
-  making error handling easier.
+* Built-in support for union types, making error handling easier.
 
 
 .. toctree::
@@ -28,6 +27,7 @@ Core features:
    tutorial
    core-principles
    requests
+   pure-requests
    asynchronicity
    exception-handling
    protocols

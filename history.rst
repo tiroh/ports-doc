@@ -8,7 +8,14 @@ Changelog
 This changelog lists the most important improvements. Minor changes or fixes of
 non-critical issues are not mentioned here.
 
-* **0.5.5** --- (31 Aug 2020) introduced ``ofOptional`` to ``Either``, added ``reduce`` to tuples, fixed error in ``Triple``
+* **0.6.0** --- (26 Apr 2021) introduced the ``@Pure`` annotation
+* **0.5.11** --- (15 Mar 2021) added convenience methods, fixed exception streamlining in protocols
+* **0.5.10** --- (19 Jan 2021) added convenience constructors
+* **0.5.9** --- (10 Nov 2020) added ``Empty`` type, convenience constructors, fixed errors
+* **0.5.8** --- (14 Oct 2020) fixed ``Either``/``Either3`` handling in protocols
+* **0.5.7** --- (12 Oct 2020) added convenience constructors to ``Either``/``Either3``
+* **0.5.6** --- (30 Sep 2020) added convenience constructors and convenience methods to ``Either``/``Either3``
+* **0.5.5** --- (31 Aug 2020) added ``ofOptional`` to ``Either``, added ``reduce`` to tuples, fixed error in ``Triple``
 * **0.5.4** --- (23 Jul 2020) fixed signature of ``andThen`` method of ``Either`` types
 * **0.5.3** --- (10 Jul 2020) introduced component ownership in Vaadin-Spring module, improved ``Either`` API
 * **0.5.2** --- (16 Jun 2020) request chaining

@@ -96,7 +96,9 @@ required.
 Step 5: Create Message Types
 ============================
 
-Your application will need message types, so let us create four of them:
+Your application will need message types, so let us create some of them.
+
+This is how you create events and simple requests:
 
 .. code-block:: java
 
@@ -105,50 +107,56 @@ Your application will need message types, so let us create four of them:
 
 .. code-block:: java
 
-  @Response(FindDataResponse.class)   // declares what type the response will have
+  public class MyFailureException {   // could also extend RuntimeException, if you want to
+  }
+
+.. code-block:: java
+
+  @Response(Integer.class)            // declares what type the response will have
+  public class DefaultNumberRequest {
+  }
+
+A request or command can also have two or three response types. Only one of them
+will be returned. This works using the ``Either`` and ``Either3`` types (see
+:doc:`requests`, :doc:`exception-handling`, and :doc:`types` for details).
+The main use case is for indicating a success or failure, like this:
+
+.. code-block:: java
+
+  @Response(FindDataResponse.class)   // these two types must be returned
+  @Response(Failure.class)            // using an Either
   public class FindDataRequest {
   }
 
 .. code-block:: java
 
-  @Response(SaveDataStatus.class)
+  @Response(Success.class)
+  @Response(Failure.class)
   public class SaveDataCommand {
-  }
-
-.. code-block:: java
-
-  public class MyFailureException {   // could also extend RuntimeException, if you want to
   }
 
 The event types and request types must have the indicated suffixes ("Event",
 "Exception", "Request", "Command"). The framework enforces this naming convention.
 
-A request or command can also have two response types. Only one of them will be returned.
-The main use case is for indicating a success or failure, like this:
+You can also use multiple return types in scenarios which are not of the success/failure
+type. For example, it might happen that a database request generates one of several
+possible data transfer objects, depending on the state of the database, or that
+nothing is returned (if nothing is found in the database). So, in general, you
+can write something like this:
 
 .. code-block:: java
 
-  @SuccessResponse(FindDataResponse.class)
-  @FailureResponse(ErrorCode.class)
-  public class FindDataRequest {
+  @Response(YellowDataResponse.class)      // these three types must be returned
+  @Response(GreenDataResponse.class)       // using an Either3
+  @Response(Nothing.class)
+  public class FindColoredDataOrNothingRequest {
   }
 
-.. code-block:: java
+A request whose response comprises multiple types must return an ``Either`` or
+an ``Either3`` (see next section).
 
-  @SuccessResponse(SaveDataResponse.class)
-  @FailureResponse(ErrorCode.class)
-  public class SaveDataCommand {
-  }
-
-Sometimes, you might want to return one of two types without being in the success/failure
-scenario. In this case, you can use two ``@Response`` annotations:
-
-.. code-block:: java
-
-  @Response(YellowDataResponse.class)
-  @Response(GreenDataResponse.class)
-  public class FindColoredDataRequest {
-  }
+In order to improve performance, requests can be marked as `pure`. For more information,
+please see :doc:`pure-requests`.
 
 
 Step 6: Send Messages via OUT Ports
@@ -159,57 +167,54 @@ for both event and exception messages, and request ports are used for both reque
 and command messages.
 
 In a component, you declare them as members of the component class marked with the
-``@Out`` annotation. It looks like this:
+``@Out`` annotation. Observe that if you have a request or command that returns
+multiple types, you have to use the ``Either`` or ``Either3`` types in the declarations
+of your OUT ports.
 
 
 .. code-block:: java
 
   @Out
   private Event<SomethingHappenedEvent> somethingHappenedEvent;
- 
-  @Out
-  private Request<FindDataRequest, FindDataResponse> findDataRequest;
   
-  @Out
-  private Request<SaveDataCommand, SaveDataStatus> saveDateCommand;
-
   @Out
   private Event<MyFailureException> myFailureExceptionEvent;
-
-If you have a request or command port that returns a union type (see above),
-you declare the OUT ports like this:
-
-.. code-block:: java
-
+ 
   @Out
-  private Request<FindDataRequest, Either<FindDataResponse, ErrorCode>> findDataRequest;
+  private Request<defaultNumberRequest, Integer> defaultNumberRequest;
   
   @Out
-  private Request<SaveDataCommand, Either<SaveDataResponse, ErrorCode>> saveDataCommand;
+  private Request<FindDataRequest, Either<FindDataResponse, Failure>> findDataRequest;
+  
+  @Out
+  private Request<SaveDataCommand, Either<Success, Failure>> saveDataCommand;
+  
 
-The member names must follow the naming convention shown.
-This is enforced by the framework.
+The member names must follow the naming convention shown. This is enforced by the framework.
 
 You can send events and exceptions using the ``trigger`` method. For requests and commands,
 you can use the methods ``call`` (returns the response directly), ``callE`` (returns
 the response packaged into an ``Either<T, Failure>``), ``callF`` (returns a
-``PortsFuture``), or ``fork`` (sends multiple requests at once and returns a ``Fork``):
+``PortsFuture``), or ``fork`` (sends multiple requests at once and returns a ``Fork``).
+It works like this (for details, please see :doc:`requests`):
 
 .. code-block:: java
 
   somethingHappenedEvent.trigger(new SomethingHappenedEvent());
   myFailureExceptionEvent.trigger(new MyFailureException());
   
-  FindDataResponse response = findDataRequest.call(new FindDataRequest());
-  SaveDataStatus status = saveDataCommand.call(new SaveDataCommand());
+  int defaultNumber = defaultNumberRequest.call(new DefaultNumberRequest());
+  Either<FindDataResponse, Failure> response = findDataRequest.call(new FindDataRequest());
+  Either<Success, Failure> status = saveDataCommand.call(new SaveDataCommand());
   
   PortsFuture<FindDataResponse> future = findDataRequest.callF(new FindDataRequest());
   
   Fork<FindDataResponse> fork = findDataRequest.fork(10, k -> new FindDataRequest();
 
-Up to Ports 0.4.1, all messages are handled synchronously. Starting with
-Ports 0.5.0, so-called **synchronization domains** are used to determine how
-messages are handled. For more information on asynchronicity and parallelism, please
+By default, Ports dispatches all messages synchronously, i.e. there is no
+concurrency involved. In order to determine whether message have to be dispatched
+synchronously or asynchronously and how synchronization is to be handled, Ports
+uses a concept called `synchronization domains`. For more information, please
 have a look at :doc:`asynchronicity`.
 
 
@@ -227,52 +232,39 @@ members. It looks like this:
 
   @In
   private void onSomethingHappened(SomethingHappenedEvent event) {
-     ...
-  }
-  
-  @In
-  private FindDataResponse onFindDataRequest(FindDataRequest request) {
-     ...
-     return new FindDataResponse(...);
-  }
-  
-  @In
-  private SaveDataStatus onSaveDataCommand(SaveDataCommand command) {
-     ...
-     return new SaveDataStatus(...);
+      ...
   }
   
   @In
   private void onMyFailureException(MyFailureException exception) {
-     ...
-  }
-
-If you have a request or command port that returns a union type (see above),
-you declare the IN ports like this:
-
-.. code-block:: java
-
-  @In
-  private Either<FindDataResponse, ErrorCode> onFindDataRequest(FindDataRequest request) {
       ...
-      if (isErrorCondition) {
-          return Either.b(new ErrorCode(...));
+  }
+  
+  @In
+  private Integer onDefaultNumberRequest(DefaultNumberRequest request) {
+      return 37;
+  }
+  
+  @In
+  private Either<FindDataResponse, Failure> onFindDataRequest(FindDataRequest request) {
+     ...
+     if (isErrorCondition) {
+          return Either.failure(...);
       } else {
           return Either.a(new FindDataResponse(...));
       }
   }
   
   @In
-  private Either<SaveDataResponse, ErrorCode> onSaveDataCommand(SaveDataCommand command) {
-      ...
-      if (isErrorCondition) {
-          return Either.b(new ErrorCode(...));
+  private Either<Success, Failure> onSaveDataCommand(SaveDataCommand command) {
+     ...
+     if (isErrorCondition) {
+          return Either.failure(...)
       } else {
-          return Either.a(new SaveDataReponse(...));
+          return Either.success();
       }
   }
-
-
+  
 There is also the option to receive events and exceptions in IN ports with stack
 semantics or queue semantics. It looks like this:
 
